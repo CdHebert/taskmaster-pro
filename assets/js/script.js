@@ -90,12 +90,12 @@ $(".card .list-group").sortable({
     },
   over: function(event) {
     $(event.target).addClass("dropover-active");
-    $(".bottom-trash").addClass("bottom-trash-active");
+    
    ;
   },
   out: function(event) {
     $(event.target).removeClass("dropover-active");
-    $(".bottom-trash").removeClass("bottom-trash-active");
+    
    ;
   },
   update: function() {
@@ -139,8 +139,10 @@ $("#trash").droppable({
   drop: function(event, ui) {
     // remove dragged element from the dom
     ui.draggable.remove();
+    $(".bottom-trash").removeClass("bottom-trash-active");
   },
   over: function(event, ui) {
+    $(".bottom-trash").addClass("bottom-trash-active");
     },
   out: function(event, ui) {
     }
@@ -293,9 +295,9 @@ $("#remove-tasks").on("click", function() {
 // load tasks for the first time
 loadTasks();
 
+// audits task due dates every 30 minutes
 setInterval(function () {
-  $(".card .list-group-item").each(function(index, el) {
-    auditTask(el);
-    console.log(el);
+  $(".card .list-group-item").each(function() {
+    auditTask($(this));
   });
 }, (1000 * 60) * 30);
